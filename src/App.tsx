@@ -3,32 +3,28 @@ import { Button } from './components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './components/ui/card';
 import { Label } from './components/ui/label';
 import { Input } from './components/ui/input';
-import { useNavigate } from "react-router"
+import { useAuthStatus, useLogin } from './hooks/useAuth';
+import { Loader2Icon } from "lucide-react"
+import { useNavigate } from 'react-router';
 
 function App() {
+  const navigate = useNavigate()
+  const {loggedIn, checking} = useAuthStatus()
+  if (!checking){
+    if (loggedIn) navigate("/")
+  }
   const [formData, setFormData] = useState<{ email: string, pwd: string }>({ email: "", pwd: "" })
   const formRef = useRef<HTMLFormElement>(null)
-  const navigate = useNavigate()
-  async function submitForm() {
-    // console.log(formData);
-    await fetch("http://localhost:3000/login", {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      mode: "cors",
-      credentials: "include",
-      method: "POST",
-      body: JSON.stringify({
-        email: formData.email,
-        pwd: formData.pwd
-      })
-    }).then(res => {
-      if (!res.ok) throw new Error("Not logged in");
-      navigate("/") // navegar para a pagina  principal
-    })
+  const { submitForm, loading, error } = useLogin()
+
+
+  async function submitFormHandler() {
+    console.log(formData);
+    submitForm(formData)
   }
+
   return (
-    <div className='mt-[7rem] m-auto w-dvw min-h-[20rem]  flex justify-center' style={{color:'red'}}>
+    <div className='mt-[7rem] m-auto w-dvw min-h-[20rem]  flex justify-center' style={{ color: 'red' }}>
 
       <Card className='m-[4rem] w-[20rem] flex justify-center bg-background border-0'>
         <CardHeader className='text-center'>
@@ -36,13 +32,13 @@ function App() {
             Login
           </CardTitle>
           <CardDescription>
-            Insira as suas credencias
+            {error.err ? <span className='text-red-500'>{error.reason}</span> : "Insira as suas credencias"}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form
             ref={formRef}
-            onSubmit={(e) => { e.preventDefault(); submitForm() }}
+            onSubmit={(e) => { e.preventDefault(); submitFormHandler() }}
           >
             <div className='mt-3'>
               <Label>O seu endereco de email</Label>
@@ -61,7 +57,7 @@ function App() {
               <Input
                 required
                 min={7}
-                type='password'
+                type='text'
                 placeholder='Palavra-passe'
                 onChange={(e) =>
                   setFormData({ ...formData, pwd: e.target.value })
@@ -72,7 +68,7 @@ function App() {
           </form>
         </CardContent>
         <CardFooter className='mt-3'>
-          <Button variant={'default'} onClick={() => formRef.current?.requestSubmit()} className='w-full' >Entrar</Button>
+          <Button variant={'default'} disabled={loading} onClick={() => formRef.current?.requestSubmit()} className='w-full' > {loading ? <Loader2Icon className='animate-spin' /> : ""} Entrar</Button>
         </CardFooter>
       </Card>
     </div>
