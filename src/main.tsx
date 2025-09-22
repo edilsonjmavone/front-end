@@ -21,12 +21,6 @@ createRoot(document.getElementById('root')!).render(
           <Route path='/login' element={<App />} />
           <Route path="/" element={<PublicRedirect />} />
 
-          <Route element={<CoordenadorLayout />}>
-            <Route path="/home_coordenador" element={<Home />} />
-            <Route path="/criar" element={<CriarUsuario />} />
-            <Route path="/criar-formador" element={<AdicionarFormador />} />
-          </Route>
-
           <Route element={<RoleProtectedLayout allowedRoles={["CHEFEDEPARTAMENTO"]} />}>
             <Route element={<ChefeDepartamentoLayout />}>
                {/* <Route path="/home_chefe" element={<ChefeDashboard />} /> */}
@@ -35,9 +29,11 @@ createRoot(document.getElementById('root')!).render(
           </Route>
 
           <Route element={<RoleProtectedLayout allowedRoles={["COORDENADOR"]} />}>
-            {/* <Route element={<CoordenadorLayout />}>
-              <Route path="/home_coordenador" element={<CoordenadorDashboard />} />
-            </Route> */}
+            <Route element={<CoordenadorLayout />}>
+              <Route path="/home_coordenador" element={<Home />} />
+              <Route path="/criar" element={<CriarUsuario />} />
+              <Route path="/criar-formador" element={<AdicionarFormador />} />
+            </Route>
           </Route>
 
           <Route element={<RoleProtectedLayout allowedRoles={["DIRECTOR"]} />}>
