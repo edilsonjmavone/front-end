@@ -16,6 +16,7 @@ import PublicRedirect from './pages/PublicRedirect.tsx'
 import ChefeDashboard from './pages/ChefeDashboard.tsx'
 import DirectorDashboard from './pages/DirectorDashboard.tsx'
 import FormadorDashboard from './pages/FormadorDashboard.tsx'
+import Unauthorized from './pages/Unauthorized.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -24,6 +25,7 @@ createRoot(document.getElementById('root')!).render(
         <Routes>
           <Route path='/login' element={<App />} />
           <Route path="/" element={<PublicRedirect />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route element={<RoleProtectedLayout allowedRoles={["CHEFEDEPARTAMENTO"]} />}>
             <Route element={<ChefeDepartamentoLayout />}>
