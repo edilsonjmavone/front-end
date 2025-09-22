@@ -11,7 +11,11 @@ import CoordenadorLayout from './components/CoordenadorLayout.tsx'
 import RoleProtectedLayout from './components/RoleProtectedLayout.tsx'
 import DirectorLayout from './components/DirectorLayout.tsx'
 import ChefeDepartamentoLayout from './components/ChefeDepartamentoLayout.tsx'
+import FormadorLayout from './components/FormadorLayout.tsx'
 import PublicRedirect from './pages/PublicRedirect.tsx'
+import ChefeDashboard from './pages/ChefeDashboard.tsx'
+import DirectorDashboard from './pages/DirectorDashboard.tsx'
+import FormadorDashboard from './pages/FormadorDashboard.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -23,7 +27,7 @@ createRoot(document.getElementById('root')!).render(
 
           <Route element={<RoleProtectedLayout allowedRoles={["CHEFEDEPARTAMENTO"]} />}>
             <Route element={<ChefeDepartamentoLayout />}>
-               {/* <Route path="/home_chefe" element={<ChefeDashboard />} /> */}
+              <Route path="/home_chefe" element={<ChefeDashboard />} />
               {/* <Route path="/chefe/relatorios" element={<ChefeRelatorios />} />  */}
             </Route>
           </Route>
@@ -38,14 +42,14 @@ createRoot(document.getElementById('root')!).render(
 
           <Route element={<RoleProtectedLayout allowedRoles={["DIRECTOR"]} />}>
             <Route element={<DirectorLayout />}>
-              {/* <Route path="/home_director" element={<DirectorDashboard />} /> */}
+              <Route path="/home_director" element={<DirectorDashboard />} />
             </Route>
           </Route>
 
           <Route element={<RoleProtectedLayout allowedRoles={["FORMADOR"]} />}>
-            {/* <Route element={<FormadorLayout />}>
+            <Route element={<FormadorLayout />}>
               <Route path="/home_formador" element={<FormadorDashboard />} />
-            </Route> */}
+            </Route>
           </Route>
 
         </Routes>
