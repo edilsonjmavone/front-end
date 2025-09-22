@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { ThemeProvider } from './components/theme-provider.tsx'
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './pages/Home.tsx'
 import CriarUsuario from './pages/CriarUsuario.tsx'
 import AdicionarFormador from './pages/AdicionarFormador.tsx'
