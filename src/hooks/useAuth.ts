@@ -11,7 +11,6 @@ export function useAuthStatus() {
         nome: string;
         role: string;
     } | null>(null);
-    
     const [checking, setChecking] = useState(true);
 
     useEffect(() => {
